@@ -2,6 +2,7 @@
 
 const https = require('https');
 const readline = require('readline');
+const bech32 = require('bech32');
 
 // URL for the Noderunners NIP-05 whitelist JSON
 const WHITELIST_URL = 'https://noderunners.org/.well-known/nostr.json';
@@ -11,6 +12,18 @@ const UPDATE_INTERVAL = 10 * 60 * 1000; // 10 minutes
 
 // The whitelist cache
 let whiteList = {};
+
+// Function to convert npub (bech32) to hex
+function npubToHex(npub) {
+    try {
+        const { words } = bech32.decode(npub);
+        const data = bech32.fromWords(words);
+        return Buffer.from(data).toString('hex');
+    } catch (e) {
+        console.error('Error converting npub to hex:', e);
+        return null;
+    }
+}
 
 // Function to fetch and update the whitelist from the URL
 function updateWhitelist(callback) {
@@ -26,8 +39,21 @@ function updateWhitelist(callback) {
         res.on('end', () => {
             try {
                 const json = JSON.parse(data);
+                whiteList = new Set();
+
                 // Convert the "names" object to a set of public keys for faster lookup
-                whiteList = new Set(Object.values(json.names).map(pubkey => pubkey.toLowerCase()));
+                for (const pubkey of Object.values(json.names)) {
+                    const lowerPubkey = pubkey.toLowerCase();
+                    whiteList.add(lowerPubkey);
+
+                    // Check if the pubkey is in bech32 format and convert it
+                    if (pubkey.startsWith('npub')) {
+                        const hexPubkey = npubToHex(pubkey);
+                        if (hexPubkey) {
+                            whiteList.add(hexPubkey.toLowerCase());
+                        }
+                    }
+                }
                 console.log('Whitelist updated successfully.');
                 if (callback) callback();
             } catch (e) {
@@ -58,7 +84,7 @@ function startProcessingEvents() {
 
             console.log('Processing event for pubkey:', pubkey);
 
-            let res = { id: event.id, action: 'reject', msg: 'You are not a Noderunner yet.' };
+            let res = { id: event.id, action: 'reject', msg: 'You are not a Noderunner yet. Please pay the fee to gain access to the Noderunners relay.' };
 
             if (whiteList.has(pubkey)) {
                 res.action = 'accept';
