@@ -1,6 +1,3 @@
-Here is the full `README.md` that you can copy and paste into your GitHub repository:
-
-```markdown
 # Strfry Plugins Directory
 
 Welcome to the Strfry Plugins Directory! This repository is a collection of plugins designed to enhance and extend the functionality of the [Strfry](https://github.com/hoytech/strfry) Nostr relay implementation. The plugins in this repository include a variety of filters, blacklists, and whitelists to help you manage the events on your Strfry relay according to your specific needs.
