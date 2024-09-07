@@ -129,7 +129,3 @@ We welcome contributions to this repository! If you have a plugin you would like
 
 This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 ```
-
----
-
-This `README.md` is structured to be clear and user-friendly, making it easy for others to understand how to use and contribute to your `strfry` plugins repository. Simply copy and paste this content into your `README.md` file on GitHub.
