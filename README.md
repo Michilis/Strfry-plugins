@@ -2,19 +2,6 @@
 
 Welcome to the Strfry Plugins Directory! This repository is a collection of plugins designed to enhance and extend the functionality of the [Strfry](https://github.com/hoytech/strfry) Nostr relay implementation. The plugins in this repository include a variety of filters, blacklists, and whitelists to help you manage the events on your Strfry relay according to your specific needs.
 
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Getting Started](#getting-started)
-  - [Using a Plugin](#using-a-plugin)
-- [Plugin Categories](#plugin-categories)
-  - [1. Whitelists](#1-whitelists)
-  - [2. Blacklists](#2-blacklists)
-  - [3. Filters](#3-filters)
-- [Available Plugins](#available-plugins)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Introduction
 
 Strfry is a high-performance Nostr relay designed to handle a large number of events and connections. One of the key features of Strfry is its support for custom policy plugins, which allow you to implement specific rules for accepting or rejecting events based on various criteria. This repository contains a variety of such plugins, organized into categories like whitelists, blacklists, and filters.
@@ -64,6 +51,14 @@ Here is a list of available plugins organized by category:
 
 **Usage**: Ideal for relays that want to restrict posting to members of a specific community or organization that maintains a NIP-05 list.
 
+#### 2. JSON Whitelist Plugin
+
+**File**: `plugins/json-whitelist-plugin.js`
+
+**Description**: This plugin uses a local JSON file to maintain a whitelist of public keys. It periodically refreshes the list, rejecting events from non-whitelisted users with a custom message.
+
+**Usage**: Perfect for relays where you maintain your own whitelist locally and need flexibility in managing approved users.
+
 ### Blacklists
 
 #### 1. Simple Blacklist Plugin
@@ -73,6 +68,14 @@ Here is a list of available plugins organized by category:
 **Description**: This plugin blocks events from users whose public keys are listed in a simple blacklist file. The blacklist is managed locally and can be updated as needed. Events from blacklisted users are rejected with a custom error message.
 
 **Usage**: Useful for blocking known spammers or unwanted users from posting to your relay.
+
+#### 2. IP-Based Blacklist Plugin
+
+**File**: `plugins/ip_blacklist_plugin.js`
+
+**Description**: This plugin blocks events and connections from specific IP addresses listed in a simple blacklist file. It helps to block users based on their IP addresses rather than public keys.
+
+**Usage**: Ideal for preventing certain IP addresses from spamming or connecting to your relay.
 
 ### Filters
 
@@ -91,6 +94,37 @@ Here is a list of available plugins organized by category:
 **Description**: This plugin uses simple heuristics to filter out spammy events. It checks event content for common spam indicators (e.g., certain keywords or excessive links) and rejects events that appear to be spam.
 
 **Usage**: Useful for relays that want to maintain a clean and relevant event stream by filtering out obvious spam.
+
+#### 3. Combined Rate Limiter, Blacklist, and Spam Filter Plugin
+
+**File**: `plugins/azzamo_combined_plugin.js`
+
+**Description**: This is a combined plugin that provides rate limiting, spam filtering, and blacklist functionality. It reads from separate `azzamo_blacklist.txt`, `azzamo_spam_keywords.txt`, and `azzamo_whitelist.txt` files. The plugin limits the number of events, filters spam, and blocks blacklisted users while allowing whitelisted users to bypass rate limits and spam filters.
+
+**Usage**: Recommended for relays looking for an all-in-one solution for managing event flow, spam, and blacklisting.
+
+## Default Configuration Files
+
+1. **azzamo_blacklist.txt**: A simple text file containing public keys of users who are blacklisted.
+2. **azzamo_spam_keywords.txt**: A list of keywords to filter out spammy events.
+3. **azzamo_whitelist.txt**: A list of public keys for users who are exempt from rate limits and spam filtering.
+
+## Example Plugin Configuration
+
+Here’s an example configuration for the **Combined Rate Limiter, Blacklist, and Spam Filter Plugin**:
+
+```toml
+writePolicy {
+    plugin = "/path/to/azzamo_combined_plugin.js"
+}
+
+# Paths to blacklist, spam keywords, and whitelist files
+pluginSettings {
+    blacklistFile = "/path/to/azzamo_blacklist.txt"
+    spamKeywordsFile = "/path/to/azzamo_spam_keywords.txt"
+    whitelistFile = "/path/to/azzamo_whitelist.txt"
+}
+
 
 ## Contributing
 
