@@ -103,11 +103,6 @@ Here is a list of available plugins organized by category:
 
 **Usage**: Recommended for relays looking for an all-in-one solution for managing event flow, spam, and blacklisting.
 
-## Default Configuration Files
-
-1. **azzamo_blacklist.txt**: A simple text file containing public keys of users who are blacklisted.
-2. **azzamo_spam_keywords.txt**: A list of keywords to filter out spammy events.
-3. **azzamo_whitelist.txt**: A list of public keys for users who are exempt from rate limits and spam filtering.
 
 ## Example Plugin Configuration
 
@@ -117,7 +112,7 @@ Here’s an example configuration for the **Combined Rate Limiter, Blacklist, an
 writePolicy {
     plugin = "/path/to/azzamo_combined_plugin.js"
 }
-
+```
 ## Contributing
 
 We welcome contributions to this repository! If you have a plugin you would like to share or improvements to existing plugins, please feel free to submit a pull request.
