@@ -118,14 +118,6 @@ writePolicy {
     plugin = "/path/to/azzamo_combined_plugin.js"
 }
 
-# Paths to blacklist, spam keywords, and whitelist files
-pluginSettings {
-    blacklistFile = "/path/to/azzamo_blacklist.txt"
-    spamKeywordsFile = "/path/to/azzamo_spam_keywords.txt"
-    whitelistFile = "/path/to/azzamo_whitelist.txt"
-}
-
-
 ## Contributing
 
 We welcome contributions to this repository! If you have a plugin you would like to share or improvements to existing plugins, please feel free to submit a pull request.
