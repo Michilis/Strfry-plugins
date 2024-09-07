@@ -128,4 +128,3 @@ We welcome contributions to this repository! If you have a plugin you would like
 ## License
 
 This repository is free and open-source software, licensed under the MIT License. You are free to use, modify, and distribute the code, as long as you include the original copyright and license notice in any substantial portion of the software.
-```
