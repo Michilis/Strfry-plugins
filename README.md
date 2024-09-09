@@ -23,19 +23,6 @@ Strfry is a high-performance Nostr relay designed to handle a large number of ev
    ```
 4. Restart your Strfry service to apply the changes.
 
-## Plugin Categories
-
-### 1. Whitelists
-
-Whitelists allow only specific users to post events to your relay. These plugins are ideal for creating a curated or restricted environment where only authorized users can contribute. Whitelists are particularly useful for private communities, organizational relays, or event-specific relays.
-
-### 2. Blacklists
-
-Blacklists are used to prevent specific users from posting events to your relay. These plugins can block known spammers, malicious users, or unwanted content, helping maintain the quality and integrity of the events on your relay.
-
-### 3. Filters
-
-Filters provide more complex logic for deciding which events are accepted or rejected. These can be based on event content, metadata, or even rate-limiting. Filters are useful for enforcing rules such as content moderation, spam detection, or throttling event submissions.
 
 ## Available Plugins
 
