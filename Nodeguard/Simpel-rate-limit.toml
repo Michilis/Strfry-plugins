@@ -1,0 +1,39 @@
+# Define the order of filters in the pipeline. The first reject or shadowReject will stop the pipeline.
+pipeline = ["protected_events", "kinds", "whitelist", "ratelimit", "forwarder"]
+
+# Protected Events Filter - empty config, but required for nip70 compliance
+[filters.protected_events]
+
+# Kinds Filter - block certain kinds (NIPs) from being processed
+[filters.kinds]
+# List of blocked NIP kinds
+kinds = [30065, 1064]
+
+# Custom messages for specific blocked kinds
+[filters.kinds.messages]
+30065 = "blocked: files on nostr are not allowed"
+1064 = "blocked: this kind of event is restricted"
+
+# Whitelist Filter - allows certain public keys or IPs to bypass filters
+[filters.whitelist]
+# List of public keys allowed to bypass filters
+pubkeys = ["16c21558762108afc34e4ff19e4ed51d9a48f79e0c34531efc423d21ab435e93"]
+
+# List of IP addresses allowed to bypass filters
+ips = ["127.0.0.1", "192.168.1.10"]
+
+# RateLimit Filter - limit the number of posts per minute per IP
+[filters.ratelimit]
+# The maximum number of notes allowed per minute per IP address
+posts_per_minute = 8
+
+# List of IP addresses that are exempt from the rate limit
+whitelist = ["127.0.0.1", "192.168.1.10"]
+
+# Forwarder Filter - forwards notes to another relay for processing
+[filters.forwarder]
+# The relay to forward notes to (WebSocket)
+relay = "ws://localhost:8080"
+
+# Optional: buffer notes when the connection is down, up to the specified size
+queue_size = 2000
