@@ -6,7 +6,7 @@ const path = require('path');
 const readline = require('readline');
 
 // SETTINGS
-const WHITELIST_API_URL = 'https://relayapi.azzamo.net/.well-known/nostr.json';
+const WHITELIST_API_URL = 'https://azzamo.net/.well-known/nostr.json';
 const PUBKEY_BLACKLIST_API_URL = 'https://ban-api.azzamo.net/public/blocked/pubkeys';
 const BANNED_WORDS_API_URL = 'https://ban-api.azzamo.net/public/blocked/words';
 const WHITELIST_REFRESH_INTERVAL = 60 * 1000; // 1 minute
